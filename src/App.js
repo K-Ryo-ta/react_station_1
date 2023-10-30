@@ -1,5 +1,6 @@
 import { useState ,useEffect} from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [Threads,setThreads] = useState([])
@@ -14,10 +15,16 @@ function App() {
   
     return (
       <div className="App">
-        <div className='title'>
-          <h1>新着スレッド</h1>
-          <hr/>
+        <div className='head'>
+          <div className='title'>
+            <h1>掲示板</h1>
+            <hr/>
+          </div>
+          <div className='create'>
+            <Link className='button' to="/createNewThreads">スレッドを立てる</Link>
+          </div>
         </div>
+       
   
         <div className='sredList'>
           {Threads.map((Thread)=>(
