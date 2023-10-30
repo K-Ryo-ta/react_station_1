@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import { useState ,useEffect} from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [Threads,setThreads] = useState([])
+  
+  useEffect(() => {
+    fetch("https://" + process.env.REACT_APP_API + "/threads?offset=0",{method : "GET"})
+      .then(res => res.json())
+      .then(data => setThreads(data));
+  }, []);
 
-export default App;
+  console.log(Threads)
+  
+    return (
+      <div className="App">
+        <div className='title'>
+          <h1>新着スレッド</h1>
+          <hr/>
+        </div>
+  
+        <div className='sredList'>
+          {Threads.map((Thread)=>(
+          <div key = {Thread.id} className='sred'>
+              <h1>{Thread.title}</h1>
+          </div>))}
+        </div>
+      </div>
+    );
+  }
+  
+  export default App;
+  
